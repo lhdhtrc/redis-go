@@ -13,8 +13,7 @@ import (
 )
 
 func main() {
-	logger, _ := zap.NewProduction()
-	instance := redis.Install(logger, &redis.ConfigEntity{})
+	client, err := redis.New(&redis.Config{})
 }
 ```
 
