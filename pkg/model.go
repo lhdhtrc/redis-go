@@ -9,13 +9,10 @@ type TLS struct {
 type Config struct {
 	Tls TLS `json:"tls" bson:"tls" yaml:"tls" mapstructure:"tls"`
 
-	Account  string `json:"account" bson:"account" yaml:"account" mapstructure:"account"`
-	Password string `json:"password" bson:"password" yaml:"password" mapstructure:"password"`
-
 	Address  string `json:"address" yaml:"address" mapstructure:"address"`
 	Database string `json:"database" yaml:"database" mapstructure:"database"`
-
-	Mode bool `json:"mode" yaml:"mode" mapstructure:"mode"` // Mode is true cluster
+	Username string `json:"username" bson:"username" yaml:"username" mapstructure:"username"`
+	Password string `json:"password" bson:"password" yaml:"password" mapstructure:"password"`
 
 	MaxOpenConnects int `json:"max_open_connects" bson:"max_open_connects" yaml:"max_open_connects" mapstructure:"max_open_connects"`
 	MaxIdleConnects int `json:"max_idle_connects" bson:"max_idle_connects" yaml:"max_idle_connects" mapstructure:"max_idle_connects"`

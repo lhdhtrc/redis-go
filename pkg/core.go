@@ -22,8 +22,8 @@ func New(config *Config) (*redis.Client, error) {
 		PoolSize:     config.MaxOpenConnects,
 	}
 
-	if config.Account != "" && config.Password != "" {
-		clientOptions.Username = config.Account
+	if config.Username != "" && config.Password != "" {
+		clientOptions.Username = config.Username
 		clientOptions.Password = config.Password
 	}
 
