@@ -7,7 +7,7 @@ type TLS struct {
 }
 
 type Config struct {
-	Tls TLS `json:"tls" bson:"tls" yaml:"tls" mapstructure:"tls"`
+	Tls *TLS `json:"tls" bson:"tls" yaml:"tls" mapstructure:"tls"`
 
 	Address  string `json:"address" yaml:"address" mapstructure:"address"`
 	Database string `json:"database" yaml:"database" mapstructure:"database"`

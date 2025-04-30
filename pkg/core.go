@@ -27,7 +27,7 @@ func New(config *Config) (*redis.Client, error) {
 		clientOptions.Password = config.Password
 	}
 
-	if config.Tls.CaCert != "" && config.Tls.ClientCert != "" && config.Tls.ClientCertKey != "" {
+	if config.Tls != nil && config.Tls.CaCert != "" && config.Tls.ClientCert != "" && config.Tls.ClientCertKey != "" {
 		certPool := x509.NewCertPool()
 		CAFile, CAErr := os.ReadFile(config.Tls.CaCert)
 		if CAErr != nil {
