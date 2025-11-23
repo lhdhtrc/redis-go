@@ -10,32 +10,32 @@ import (
 	"time"
 )
 
-func New(config *Config) (*redis.Client, error) {
+func New(conf *Conf) (*redis.Client, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 
-	db, _ := strconv.Atoi(config.Database)
+	db, _ := strconv.Atoi(conf.Database)
 	clientOptions := redis.Options{
-		Addr:         config.Address,
+		Addr:         conf.Address,
 		DB:           db,
-		MaxIdleConns: config.MaxIdleConnects,
-		PoolSize:     config.MaxOpenConnects,
+		MaxIdleConns: conf.MaxIdleConnects,
+		PoolSize:     conf.MaxOpenConnects,
 	}
 
-	if config.Username != "" && config.Password != "" {
-		clientOptions.Username = config.Username
-		clientOptions.Password = config.Password
+	if conf.Username != "" && conf.Password != "" {
+		clientOptions.Username = conf.Username
+		clientOptions.Password = conf.Password
 	}
 
-	if config.Tls != nil && config.Tls.CaCert != "" && config.Tls.ClientCert != "" && config.Tls.ClientCertKey != "" {
+	if conf.Tls != nil && conf.Tls.CaCert != "" && conf.Tls.ClientCert != "" && conf.Tls.ClientCertKey != "" {
 		certPool := x509.NewCertPool()
-		CAFile, CAErr := os.ReadFile(config.Tls.CaCert)
+		CAFile, CAErr := os.ReadFile(conf.Tls.CaCert)
 		if CAErr != nil {
 			return nil, CAErr
 		}
 		certPool.AppendCertsFromPEM(CAFile)
 
-		clientCert, clientCertErr := tls.LoadX509KeyPair(config.Tls.ClientCert, config.Tls.ClientCertKey)
+		clientCert, clientCertErr := tls.LoadX509KeyPair(conf.Tls.ClientCert, conf.Tls.ClientCertKey)
 		if clientCertErr != nil {
 			return nil, clientCertErr
 		}
