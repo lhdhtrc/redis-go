@@ -10,7 +10,7 @@ import (
 
 func New(c *Conf) (*redis.Client, error) {
 	if c == nil {
-		return nil, errors.New("redis: nil conf")
+		return nil, errors.New("redis: conf is nil")
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
