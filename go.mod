@@ -1,4 +1,4 @@
-module github.com/lhdhtrc/redis-go
+module github.com/fireflycore/go-redis
 
 go 1.25.1
 
