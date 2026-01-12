@@ -1,5 +1,7 @@
 package redis
 
+import "github.com/fireflycore/go-utils/tlsx"
+
 // Conf 定义 redis 连接初始化所需的配置项。
 type Conf struct {
 	Address  string `json:"address"`
@@ -8,7 +10,7 @@ type Conf struct {
 	Password string `json:"password"`
 
 	// Tls 为 TLS 配置，非空且字段齐全时启用双向 TLS。
-	Tls *TLS `json:"tls"`
+	Tls *tlsx.TLS `json:"tls"`
 
 	// MaxOpenConnects 为连接池大小（近似最大连接数）。
 	MaxOpenConnects int `json:"max_open_connects"`

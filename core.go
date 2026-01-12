@@ -5,6 +5,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/fireflycore/go-utils/tlsx"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -36,7 +37,7 @@ func New(c *Conf) (*redis.Client, error) {
 	}
 
 	// 从配置生成 TLSConfig；tlsEnabled 表示是否启用 TLS。
-	tlsConfig, tlsEnabled, err := NewTLSConfig(c.Tls)
+	tlsConfig, tlsEnabled, err := tlsx.NewTLSConfig(c.Tls)
 	// TLS 配置构造失败时直接返回错误。
 	if err != nil {
 		return nil, err
