@@ -3,7 +3,7 @@ module github.com/fireflycore/go-redis
 go 1.25.1
 
 require (
-	github.com/fireflycore/go-utils v0.3.5
+	github.com/fireflycore/go-utils v0.3.6
 	github.com/redis/go-redis/v9 v9.17.0
 )
 
