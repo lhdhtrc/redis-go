@@ -3,8 +3,10 @@ package redis
 import (
 	"context"
 	"errors"
+	"net"
 	"time"
 
+	"github.com/fireflycore/go-utils/network"
 	"github.com/fireflycore/go-utils/tlsx"
 	"github.com/redis/go-redis/v9"
 )
@@ -12,6 +14,11 @@ import (
 func New(c *Conf) (*redis.Client, error) {
 	if c == nil {
 		return nil, errors.New("redis: conf is nil")
+	}
+
+	host, port, err := network.SplitHostPort(c.Address, "6379")
+	if err != nil {
+		return nil, err
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -24,7 +31,7 @@ func New(c *Conf) (*redis.Client, error) {
 
 	clientOptions := redis.Options{
 		// Addr 为 redis 地址，一般为 host:port。
-		Addr: c.Address,
+		Addr: net.JoinHostPort(host, port),
 		// DB 为 redis 逻辑库号。
 		DB: db,
 	}
@@ -45,6 +52,7 @@ func New(c *Conf) (*redis.Client, error) {
 	// 启用 TLS 时，将 TLSConfig 写入 clientOptions。
 	if tlsEnabled {
 		clientOptions.TLSConfig = tlsConfig
+		clientOptions.TLSConfig.ServerName = host
 	}
 
 	if c.MaxIdleConnects > 0 {
